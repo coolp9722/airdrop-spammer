@@ -3,13 +3,13 @@ import threading
 from colorama import init, Fore, Style
 import time
 import os
+
 # Initialize colorama
 init()
 
 # Clear screen
 os.system("clear || cls")
-print(Fore.LIGHTGREEN_EX + "[+] Sending out airdrops")
-time.sleep(2)
+print(Fore.LIGHTCYAN_EX + "AIRDROP SPAMMER MADE BY ZAK")
 
 def send_to_recipient(recipient, content_url):
     command = f"opendrop send -r {recipient} -f {content_url} --url"
@@ -17,7 +17,7 @@ def send_to_recipient(recipient, content_url):
         subprocess.run(command, shell=True, check=True, stderr=subprocess.DEVNULL)
         print(Fore.LIGHTGREEN_EX + f"[+] Content sent to recipient {recipient} successfully.")
     except Exception as e:
-        print(Fore.LIGHTWHITE_EX + "[+] Found a target sending airdrop!!")
+        print(Fore.LIGHTYELLOW_EX + "[+] Found a target sending airdrop!!")
         pass
 
 def send_to_all_recipients(recipients, content_url):
@@ -30,8 +30,14 @@ def send_to_all_recipients(recipients, content_url):
         thread.join()
 
 def main():
-    recipients = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]  
-    content_url = "https://google.com"  
+    # Input the number of recipients
+    num_recipients = int(input(Fore.LIGHTMAGENTA_EX + "Enter the number of recipients: "))
+    
+    # Generate recipient list
+    recipients = list(range(num_recipients))
+    
+    content_url = "https://google.com"
+    
     send_to_all_recipients(recipients, content_url)
 
 
