@@ -17,7 +17,7 @@ def send_to_recipient(recipient, content_url):
         subprocess.run(command, shell=True, check=True, stderr=subprocess.DEVNULL)
         print(Fore.LIGHTGREEN_EX + f"[+] Content sent to recipient {recipient} successfully.")
     except Exception as e:
-        print(Fore.LIGHTYELLOW_EX + "[+] Found a target sending airdrop!!")
+        print(Fore.LIGHTYELLOW_EX + "[-] Error")
         pass
 
 def send_to_all_recipients(recipients, content_url):
