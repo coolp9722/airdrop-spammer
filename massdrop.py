@@ -3,11 +3,14 @@ import threading
 from colorama import init, Fore, Style
 import time
 import os
+from simple_term_menu import TerminalMenu
 
+
+options = ["Spam Airdrop", "Find Computers", "Exit"]
 init()
 
 os.system("clear || cls")
-print(Fore.LIGHTCYAN_EX + "AIRDROP SPAMMER MADE BY ZAK")
+print(Fore.LIGHTMAGENTA_EX + "AIRDROP SPAMMER MADE BY ZAK")
 
 def send_to_recipient(recipient, content_url):
     command = f"opendrop send -r {recipient} -f {content_url} --url"
@@ -44,5 +47,50 @@ def main():
     while True:
         send_to_all_recipients(recipients, content_url)
 
-if __name__ == "__main__":
-    main()
+
+
+def main_menu(options): 
+    terminal_menu = TerminalMenu(options) 
+    terminal_menu._menu_cursor_style = ("fg_purple", "bold")
+    menu_entry_index = terminal_menu.show() 
+    return options[menu_entry_index] 
+
+
+def find_Computers():
+    command = "opendrop find"
+    try:
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        for line in process.stdout:
+            print(line.decode().strip())
+        process.wait()
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e}")
+
+
+def print_code():
+    print(Fore.LIGHTMAGENTA_EX + "AIRDROP SPAMMER MADE BY ZAK")
+
+while True: 
+    option = main_menu(options) 
+    
+    match option: 
+        case "Spam Airdrop":
+            main() 
+        case "Find Computers":
+            find_Computers()
+        case "Exit":
+            confirmation = input(Fore.LIGHTRED_EX + "Do you want to exit y/n: ") 
+            if confirmation == "y": 
+                print(Fore.LIGHTRED_EX + "Exiting program") 
+                time.sleep(2.5) 
+                os.system("clear || cls") 
+                exit() 
+            elif confirmation == "n": 
+                print(Fore.LIGHTRED_EX + "Returning back to menu...") 
+                time.sleep(2.5) 
+            else:
+                print(Fore.LIGHTRED_EX + "Invalid Option..") 
+                time.sleep(2.5) 
+                os.system("clear || cls")
+                print_code()
