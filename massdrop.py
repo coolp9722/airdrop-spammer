@@ -78,6 +78,8 @@ while True:
         case "Spam Airdrop":
             main() 
         case "Find Computers":
+            os.system("clear")
+            print_code()
             find_Computers()
         case "Exit":
             confirmation = input(Fore.LIGHTRED_EX + "Do you want to exit y/n: ") 
