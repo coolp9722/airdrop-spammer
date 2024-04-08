@@ -7,23 +7,37 @@ from simple_term_menu import TerminalMenu
 from playsound import playsound
 import tkinter as tk
 from tkinter import filedialog
+import subprocess
 
-options = ["Spam Airdrop Links", "Airdrop File Spoof", "Find Computers", "Exit"]
+options = ["Spam Airdrop Links", "Airdrop File Spoof", "Change Computer Name", "Find Computers", "Exit"]
 init()
 
 os.system("clear || cls")
-print(Fore.LIGHTMAGENTA_EX + "AIRDROP SPAMMER MADE BY ZAK")
+def logo():
+    print(Fore.LIGHTMAGENTA_EX + """
+ █████╗ ██╗██████╗     ███████╗██████╗  █████╗ ███╗   ███╗
+██╔══██╗██║██╔══██╗    ██╔════╝██╔══██╗██╔══██╗████╗ ████║
+███████║██║██████╔╝    ███████╗██████╔╝███████║██╔████╔██║
+██╔══██║██║██╔══██╗    ╚════██║██╔═══╝ ██╔══██║██║╚██╔╝██║
+██║  ██║██║██║  ██║    ███████║██║     ██║  ██║██║ ╚═╝ ██║
+╚═╝  ╚═╝╚═╝╚═╝  ╚═╝    ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝     ╚═╝                                                     
+""")
+    print(Fore.MAGENTA + "Made by Zak")
+logo()
 
 def loading_animation():
     animation = "|/-\\"
     start_time = time.time()
     while time.time() - start_time < 2:
         for char in animation:
-            print(Fore.LIGHTMAGENTA_EX + f" Loading {char}", end="\r")
+            print(Fore.LIGHTMAGENTA_EX + f"Loading {char}", end="\r")
             time.sleep(0.1)
             
 
 loading_animation()
+
+
+
 def send_to_recipient(recipient, content_url):
     command = f"opendrop send -r {recipient} -f {content_url} --url"
     try:
@@ -49,6 +63,8 @@ def send_to_all_recipients(recipients, content_url):
         thread.join()
 
 def main():
+    os.system("clear")
+    logo()
     num_recipients = int(input(Fore.LIGHTMAGENTA_EX + "Enter the number of recipients: ")) + 1
     url = input(Fore.LIGHTMAGENTA_EX + "Enter the content url: ")
     recipients = list(range(num_recipients))
@@ -93,6 +109,8 @@ def file_path_new():
     return file_path
 
 def file_spoof():
+    os.system("clear")
+    logo()
     num_recipients = int(input(Fore.LIGHTMAGENTA_EX + "Enter the number of recipients: ")) + 1
     path = file_path_new()
     recipients = list(range(num_recipients))
@@ -110,6 +128,8 @@ def main_menu(options):
 
 
 def find_Computers():
+    os.system("clear")
+    logo()
     command = "opendrop find"
     try:
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -123,11 +143,25 @@ def find_Computers():
        sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
        playsound(sound_file)
        os.system("clear")
-       print_code()
+       logo()
 
 
-def print_code():
-    print(Fore.LIGHTMAGENTA_EX + "AIRDROP SPAMMER MADE BY ZAK")
+def change_name():
+    os.system("clear")
+    logo()
+    new_name = input(Fore.LIGHTMAGENTA_EX + "Enter new name: ")
+    subprocess.run(['sudo', 'scutil', '--set', 'HostName', new_name])
+    print(Fore.LIGHTGREEN_EX + f"[+] Hostname changed to {new_name}")
+    subprocess.run(['sudo', 'scutil', '--set', 'LocalHostName', new_name])
+    print(Fore.LIGHTGREEN_EX + f"[+] Local Hostname changed to {new_name}")
+    subprocess.run(['sudo', 'scutil', '--set', 'ComputerName', new_name])
+    print(Fore.LIGHTGREEN_EX + f"[+] Computer Name changed to {new_name}")
+    print(Fore.LIGHTRED_EX + "Returning to menu...")
+    time.sleep(2.5)
+    os.system("clear")
+    logo()
+
+
 
 while True: 
     option = main_menu(options) 
@@ -141,24 +175,28 @@ while True:
             sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
             playsound(sound_file)
             os.system("clear")
-            print_code()
+            logo()
             find_Computers()
         case "Airdrop File Spoof":
                 sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
                 playsound(sound_file)
                 file_spoof()
+        case "Change Computer Name":
+            sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+            playsound(sound_file)
+            change_name()        
         case "Exit":
             confirmation = input(Fore.LIGHTRED_EX + "Do you want to exit y/n: ") 
-            if confirmation == "y" or "Y": 
+            if confirmation == "y": 
                 print(Fore.LIGHTRED_EX + "Exiting program") 
                 time.sleep(2.5) 
                 os.system("clear || cls") 
                 exit() 
-            elif confirmation == "n" or "N": 
+            elif confirmation == "n": 
                 print(Fore.LIGHTRED_EX + "Returning back to menu...") 
                 time.sleep(2.5) 
             else:
                 print(Fore.LIGHTRED_EX + "Invalid Option..") 
                 time.sleep(2.5) 
                 os.system("clear || cls")
-                print_code()
+                logo()
