@@ -207,7 +207,7 @@ while True:
         case "Credits":
             sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
             playsound(sound_file)
-            code_credits()           
+            code_credits() 
         case "Exit":
             confirmation = input(Fore.LIGHTRED_EX + "Do you want to exit y/n: ") 
             if confirmation == "y": 
