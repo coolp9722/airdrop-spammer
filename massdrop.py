@@ -46,7 +46,7 @@ def send_to_recipient(recipient, content_url):
     try:
         while True:
             subprocess.run(command, shell=True, check=True, stderr=subprocess.DEVNULL)
-            print(Fore.LIGHTGREEN_EX + f"[+] sent to recipient {recipient} successfully.")
+            print(Fore.LIGHTGREEN_EX + f"[+] Sent to recipient {recipient} successfully.")
             new_command = f"opendrop send -r {recipient} -f {content_url} --url"
             subprocess.run(new_command, shell=True, check=True, stderr=subprocess.DEVNULL)
             print(Fore.LIGHTYELLOW_EX + f"[+] New airdrop sent to recipient {recipient} successfully.")
@@ -84,8 +84,8 @@ def send_spam_file_spoof(recipient, file_path):
     try:
         while True:
             subprocess.run(command, shell=True, check=True, stderr=subprocess.DEVNULL)
-            print(Fore.LIGHTGREEN_EX + f"[+] sent spoofed file to recipient {recipient} successfully.")
-            new_command = f"opendrop send -r {recipient} -f {file_path} "
+            print(Fore.LIGHTGREEN_EX + f"[+] Sent spoofed file to recipient {recipient} successfully.")
+            new_command = f"opendrop send -r {recipient} -f {file_path}"
             subprocess.run(new_command, shell=True, check=True, stderr=subprocess.DEVNULL)
             print(Fore.LIGHTYELLOW_EX + f"[+] New airdrop spoofed file sent to recipient {recipient} successfully.")
             time.sleep(1)
@@ -133,6 +133,7 @@ def main_menu(options):
 def find_Computers():
     os.system("clear")
     logo()
+    print(Fore.LIGHTYELLOW_EX + "You may need you sudo password to change the name")
     command = "sudo opendrop find"
     try:
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -153,6 +154,7 @@ def change_name():
     os.system("clear")
     logo()
     new_name = input(Fore.LIGHTMAGENTA_EX + "Enter new name: ")
+    print(Fore.LIGHTYELLOW_EX + "You may need you sudo password to change the name")
     subprocess.run(['sudo', 'scutil', '--set', 'HostName', new_name])
     print(Fore.LIGHTGREEN_EX + f"[+] Hostname changed to {new_name}")
     subprocess.run(['sudo', 'scutil', '--set', 'LocalHostName', new_name])
