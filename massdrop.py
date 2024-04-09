@@ -8,9 +8,12 @@ from playsound import playsound
 import tkinter as tk
 from tkinter import filedialog
 import subprocess
+import platform
 
-options = ["Spam Airdrop Links", "Airdrop File Spoof", "Change Computer Name", "Find Computers", "Exit"]
+
+options = ["Spam Airdrop Links", "Airdrop File Spoof", "Change Computer Name", "Find Computers", "Credits", "Exit"]
 init()
+device_name = platform.node()
 
 os.system("clear || cls")
 def logo():
@@ -22,7 +25,7 @@ def logo():
 ██║  ██║██║██║  ██║    ███████║██║     ██║  ██║██║ ╚═╝ ██║
 ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝    ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝     ╚═╝                                                     
 """)
-    print(Fore.MAGENTA + "Made by Zak")
+    print(Fore.MAGENTA + f"Device Name: {device_name}")
 logo()
 
 def loading_animation():
@@ -130,7 +133,7 @@ def main_menu(options):
 def find_Computers():
     os.system("clear")
     logo()
-    command = "opendrop find"
+    command = "sudo opendrop find"
     try:
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         for line in process.stdout:
@@ -161,7 +164,23 @@ def change_name():
     os.system("clear")
     logo()
 
-
+def code_credits():
+    os.system("clear")
+    logo()
+    print(Fore.LIGHTGREEN_EX + "AirSpam V2")
+    time.sleep(2)
+    print(Fore.LIGHTGREEN_EX + "Made by Zak Bovis")
+    time.sleep(2)
+    print(Fore.LIGHTGREEN_EX + "Github: https://github.com/coolp9722")
+    time.sleep(2)
+    print(Fore.LIGHTGREEN_EX + "Discord: opedgamer.")
+    time.sleep(2)
+    print(Fore.LIGHTGREEN_EX + "Email: coolp972zak@gmail.com")
+    time.sleep(2)
+    print(Fore.LIGHTGREEN_EX + "Thanks for using AirSpam V2")
+    time.sleep(2)
+    os.system("clear")
+    logo()
 
 while True: 
     option = main_menu(options) 
@@ -184,7 +203,11 @@ while True:
         case "Change Computer Name":
             sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
             playsound(sound_file)
-            change_name()        
+            change_name() 
+        case "Credits":
+            sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+            playsound(sound_file)
+            code_credits()           
         case "Exit":
             confirmation = input(Fore.LIGHTRED_EX + "Do you want to exit y/n: ") 
             if confirmation == "y": 
