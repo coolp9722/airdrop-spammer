@@ -10,6 +10,7 @@ from tkinter import filedialog
 import subprocess
 import platform
 import random
+import psutil
 
 
 options = ["Spam Airdrop Links", "Airdrop File Spoof", "Random Name Airdrop File", "Random Name Airdrop Link", "Change Computer Name", "Find Computers", "Sys Info", "Credits", "Clear Console", "Exit"]
@@ -106,9 +107,11 @@ def send_random_file_spoof(recipient, file_path):
             names = ["Miss Grays Gaming Laptop", "Airspam On Top", "Wills Macbook Air", "James Macbook Pro", "Jacobs Iphone XR", "Michaels Iphone 14 pro", "Kaylas Laptop", "Trump 2024", "The Real Sigma", "Matilda Gonzalez", "Abby's Iphone 11", "Zaks S22 + 5G", "Airdrop too eternity and beyond", "Jack's Imac", "Mr Watson's Surveillance Satellite", "Mr Watson's Surveillance Van", "Ollie's Macbook Air", "The Bluetooth Device Is Ready To Pair", "The Last Sigma"]
             random_name = random.choice(names)
             subprocess.run(['sudo', 'scutil', '--set', 'ComputerName', random_name])
-            print(Fore.LIGHTGREEN_EX + f"[+] Changed Name Too {random_name}")
+            subprocess.run(['sudo', 'scutil', '--set', 'HostName', random_name])
             new_command = f"opendrop send -r {recipient} -f {file_path}"
             subprocess.run(new_command, shell=True, check=True, stderr=subprocess.DEVNULL)
+            subprocess.run(['sudo', 'scutil', '--set', 'ComputerName', random_name])
+            subprocess.run(['sudo', 'scutil', '--set', 'HostName', random_name])
             print(Fore.LIGHTYELLOW_EX + f"[+] New airdrop spoofed file sent to recipient {recipient} successfully.")
             time.sleep(1)
             
@@ -117,8 +120,7 @@ def send_random_file_spoof(recipient, file_path):
         names = ["Miss Grays Gaming Laptop", "Airspam On Top", "Wills Macbook Air", "James Macbook Pro", "Jacobs Iphone XR", "Michaels Iphone 14 pro", "Kaylas Laptop", "Trump 2024", "The Real Sigma", "Matilda Gonzalez", "Abby's Iphone 11", "Zaks S22 + 5G", "Airdrop too eternity and beyond", "Jack's Imac", "Mr Watson's Surveillance Satellite", "Mr Watson's Surveillance Van", "Ollie's Macbook Air", "The Bluetooth Device Is Ready To Pair", "The Last Sigma"]
         random_name = random.choice(names)
         subprocess.run(['sudo', 'scutil', '--set', 'ComputerName', random_name])
-        # subprocess.run(['sudo', 'scutil', '--set', 'HostName', random_name])
-        print(Fore.LIGHTGREEN_EX + f"[+] Changed Name Too {random_name}")
+        subprocess.run(['sudo', 'scutil', '--set', 'HostName', random_name])
 
 
 
@@ -131,9 +133,11 @@ def send_random_link_spoof(recipient, content_url):
             names = ["Miss Grays Gaming Laptop", "Airspam On Top", "Wills Macbook Air", "James Macbook Pro", "Jacobs Iphone XR", "Michaels Iphone 14 pro", "Kaylas Laptop", "Trump 2024", "The Real Sigma", "Matilda Gonzalez", "Abby's Iphone 11", "Zaks S22 + 5G", "Airdrop too eternity and beyond", "Jack's Imac", "Mr Watson's Surveillance Satellite", "Mr Watson's Surveillance Van", "Ollie's Macbook Air", "The Bluetooth Device Is Ready To Pair", "The Last Sigma"]
             random_name = random.choice(names)
             subprocess.run(['sudo', 'scutil', '--set', 'ComputerName', random_name])
-            print(Fore.LIGHTGREEN_EX + f"[+] Changed Name Too {random_name}")
+            subprocess.run(['sudo', 'scutil', '--set', 'HostName', random_name])
             new_command = f"opendrop send -r {recipient} -f {content_url} --url"
             subprocess.run(new_command, shell=True, check=True, stderr=subprocess.DEVNULL)
+            subprocess.run(['sudo', 'scutil', '--set', 'ComputerName', random_name])
+            subprocess.run(['sudo', 'scutil', '--set', 'HostName', random_name])
             print(Fore.LIGHTYELLOW_EX + f"[+] New airdrop sent to recipient {recipient} successfully.")
             time.sleep(1)
             
@@ -142,7 +146,7 @@ def send_random_link_spoof(recipient, content_url):
         names = ["Miss Grays Gaming Laptop", "Airspam On Top", "Wills Macbook Air", "James Macbook Pro", "Jacobs Iphone XR", "Michaels Iphone 14 pro", "Kaylas Laptop", "Trump 2024", "The Real Sigma", "Matilda Gonzalez", "Abby's Iphone 11", "Zaks S22 + 5G", "Airdrop too eternity and beyond", "Jack's Imac", "Mr Watson's Surveillance Satellite", "Mr Watson's Surveillance Van", "Ollie's Macbook Air", "The Bluetooth Device Is Ready To Pair", "The Last Sigma"]
         random_name = random.choice(names)
         subprocess.run(['sudo', 'scutil', '--set', 'ComputerName', random_name])
-        print(Fore.LIGHTGREEN_EX + f"[+] Changed Name Too {random_name}")
+        subprocess.run(['sudo', 'scutil', '--set', 'HostName', random_name])
 
 
 
@@ -244,7 +248,7 @@ def find_Computers():
     except subprocess.CalledProcessError:
         print(Fore.LIGHTRED_EX + f"Error")
     except KeyboardInterrupt:
-       sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+       sound_file = "sounds/Found_Mac.wav"
        playsound(sound_file)
        os.system("clear")
        logo()
@@ -412,15 +416,13 @@ def sys_info():
     print(Fore.LIGHTGREEN_EX + "AirSpam V2.3")
     print(Fore.LIGHTGREEN_EX + "Getting info...")
     time.sleep(2)
+    cpu_info = platform.machine()
+    ram_info = psutil.virtual_memory()
     print(Fore.LIGHTYELLOW_EX + f"[+] Device Name: {device_name}")
     time.sleep(2)
-    print(Fore.LIGHTYELLOW_EX + f"[+] More info")
+    print(Fore.LIGHTYELLOW_EX + f"[+] CPU: {cpu_info}")
     time.sleep(2)
-    print(Fore.LIGHTYELLOW_EX + f"[+] More info")
-    time.sleep(2)
-    print(Fore.LIGHTYELLOW_EX + f"[+] More info")
-    time.sleep(2)
-    print(Fore.LIGHTYELLOW_EX + f"[+] More info")
+    print(Fore.LIGHTYELLOW_EX + f"[+] RAM Total: {ram_info.total / (1024 ** 3):.2f} GB")
     print(Fore.LIGHTRED_EX + f"[-] Returning Back To Menu")
     time.sleep(5)
     os.system("clear")
@@ -433,37 +435,37 @@ while True:
     
     match option: 
         case "Spam Airdrop Links":
-            sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+            sound_file = "sounds/Found_Mac.wav"
             playsound(sound_file)
             main() 
         case "Find Computers":
-            sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+            sound_file = "sounds/Found_Mac.wav"
             playsound(sound_file)
             os.system("clear")
             logo()
             find_Computers()
         case "Airdrop File Spoof":
-                sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+                sound_file = "sounds/Found_Mac.wav"
                 playsound(sound_file)
                 file_spoof()
         case "Random Name Airdrop Link":
-            sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+            sound_file = "sounds/Found_Mac.wav"
             playsound(sound_file)
             random_link_spoof()
         case "Random Name Airdrop File":
-            sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+            sound_file = "sounds/Found_Mac.wav"
             playsound(sound_file)
             random_file_spoof()      
         case "Change Computer Name":
-            sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+            sound_file = "sounds/Found_Mac.wav"
             playsound(sound_file)
             change_name() 
         case "Sys Info":
-            sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+            sound_file = "sounds/Found_Mac.wav"
             playsound(sound_file)
             sys_info()
         case "Credits":
-            sound_file = "/Users/zakbovis/Desktop/stuff/coding/airdrop-spammer/sounds/Found_Mac.wav"
+            sound_file = "sounds/Found_Mac.wav"
             playsound(sound_file)
             code_credits() 
         case "Clear Console":
